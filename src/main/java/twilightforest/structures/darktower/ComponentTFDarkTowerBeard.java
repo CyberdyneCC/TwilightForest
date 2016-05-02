@@ -14,7 +14,7 @@ public class ComponentTFDarkTowerBeard extends StructureTFComponent {
     protected int size;
     protected int height;
 
-    public ComponentTFDarkTowerBeard() {}
+    public ComponentTFDarkTowerBeard() {} //Very hawt beard mr.dark tower
 
     public ComponentTFDarkTowerBeard(int i, ComponentTFTowerWing wing) {
         super(i);
