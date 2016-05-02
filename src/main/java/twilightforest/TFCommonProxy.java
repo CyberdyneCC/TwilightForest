@@ -64,11 +64,11 @@ public class TFCommonProxy implements IGuiHandler {
     public void spawnParticle(World world, String particleType, double x, double y, double z, double velX, double velY, double velZ) {}
 
     public Object getServerGuiElement(int ID, EntityPlayer player, World world, int x, int y, int z) {
-        return new ContainerTFUncrafting(player.field_71071_by, world, x, y, z);
+        return new ContainerTFUncrafting(player.inventory, world, x, y, z);
     }
 
     public Object getClientGuiElement(int ID, EntityPlayer player, World world, int x, int y, int z) {
-        return new GuiTFGoblinCrafting(player.field_71071_by, world, x, y, z);
+        return new GuiTFGoblinCrafting(player.inventory, world, x, y, z);
     }
 
     public ModelBiped getKnightlyArmorModel(int armorSlot) {

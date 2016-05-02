@@ -299,15 +299,15 @@ public class TwilightForestMod {
 
         if (Item.itemRegistry.containsKey(TwilightForestMod.portalCreationItemString)) {
             portalItem = (Item) Item.itemRegistry.getObject(TwilightForestMod.portalCreationItemString);
-            if (portalItem != Items.field_151045_i) {
+            if (portalItem != Items.diamond) {
                 FMLLog.info("Set Twilight Forest portal item to %s", new Object[] { portalItem.getUnlocalizedName()});
             }
-        } else if (Block.field_149771_c.func_148741_d(TwilightForestMod.portalCreationItemString)) {
-            portalItem = Item.getItemFromBlock((Block) Block.field_149771_c.func_82594_a(TwilightForestMod.portalCreationItemString));
+        } else if (Block.blockRegistry.containsKey(TwilightForestMod.portalCreationItemString)) {
+            portalItem = Item.getItemFromBlock((Block) Block.blockRegistry.getObject(TwilightForestMod.portalCreationItemString));
             FMLLog.info("Set Twilight Forest portal item to %s", new Object[] { portalItem.getUnlocalizedName()});
         } else {
             FMLLog.info("Twilight Forest config lists portal item as \'%s\'.  Not found, defaulting to diamond.", new Object[] { TwilightForestMod.portalCreationItemString});
-            portalItem = Items.field_151045_i;
+            portalItem = Items.diamond;
         }
 
         TwilightForestMod.tickHandler.portalItem = portalItem;

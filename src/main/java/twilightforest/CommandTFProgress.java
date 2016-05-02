@@ -11,26 +11,30 @@ public class CommandTFProgress extends CommandBase {
 
     String[] bosses = new String[] { "none", "naga", "lich", "mooshroom", "hydra", "knights", "urghast", "yeti", "snowqueen", "giants", "final"};
 
-    public String func_71517_b() {
+    @Override
+    public String getCommandName() {
         return "tfprogress";
     }
 
-    public String func_71518_a(ICommandSender sender) {
+    @Override
+    public String getCommandUsage(ICommandSender sender) {
         return "tfprogress <player> <boss>";
     }
 
-    public int func_82362_a() {
+    @Override
+    public int getRequiredPermissionLevel() {
         return 2;
     }
 
-    public void func_71515_b(ICommandSender sender, String[] args) {
+    @Override
+    public void processCommand(ICommandSender sender, String[] args) {
         if (args.length < 2) {
             throw new WrongUsageException("tfprogress <player> <boss>", new Object[0]);
         } else {
-            EntityPlayerMP player = func_82359_c(sender, args[0]);
+            EntityPlayerMP player = getPlayer(sender, args[0]);
             int bossIndex = this.getBossIndex(args[1]);
 
-            func_152373_a(sender, this, "Setting player %s progress to past boss %s.", new Object[] { player.func_70005_c_(), this.bosses[bossIndex]});
+            func_152373_a(sender, this, "Setting player %s progress to past boss %s.", new Object[] { player.getCommandSenderName(), this.bosses[bossIndex]});
             this.setProgress(player, bossIndex);
         }
     }
@@ -48,51 +52,51 @@ public class CommandTFProgress extends CommandBase {
             break;
 
         case 1:
-            player.func_71029_a(TFAchievementPage.twilightPortal);
-            player.func_71029_a(TFAchievementPage.twilightArrival);
-            player.func_71029_a(TFAchievementPage.twilightHunter);
-            player.func_71029_a(TFAchievementPage.twilightKillNaga);
-            player.func_71029_a(TFAchievementPage.twilightProgressNaga);
+            player.triggerAchievement(TFAchievementPage.twilightPortal);
+            player.triggerAchievement(TFAchievementPage.twilightArrival);
+            player.triggerAchievement(TFAchievementPage.twilightHunter);
+            player.triggerAchievement(TFAchievementPage.twilightKillNaga);
+            player.triggerAchievement(TFAchievementPage.twilightProgressNaga);
             break;
 
         case 2:
-            player.func_71029_a(TFAchievementPage.twilightKillLich);
-            player.func_71029_a(TFAchievementPage.twilightProgressLich);
+            player.triggerAchievement(TFAchievementPage.twilightKillLich);
+            player.triggerAchievement(TFAchievementPage.twilightProgressLich);
             break;
 
         case 3:
-            player.func_71029_a(TFAchievementPage.twilightProgressLabyrinth);
+            player.triggerAchievement(TFAchievementPage.twilightProgressLabyrinth);
             break;
 
         case 4:
-            player.func_71029_a(TFAchievementPage.twilightKillHydra);
-            player.func_71029_a(TFAchievementPage.twilightProgressHydra);
+            player.triggerAchievement(TFAchievementPage.twilightKillHydra);
+            player.triggerAchievement(TFAchievementPage.twilightProgressHydra);
             break;
 
         case 5:
-            player.func_71029_a(TFAchievementPage.twilightProgressTrophyPedestal);
-            player.func_71029_a(TFAchievementPage.twilightProgressKnights);
+            player.triggerAchievement(TFAchievementPage.twilightProgressTrophyPedestal);
+            player.triggerAchievement(TFAchievementPage.twilightProgressKnights);
             break;
 
         case 6:
-            player.func_71029_a(TFAchievementPage.twilightProgressUrghast);
+            player.triggerAchievement(TFAchievementPage.twilightProgressUrghast);
             break;
 
         case 7:
-            player.func_71029_a(TFAchievementPage.twilightProgressYeti);
+            player.triggerAchievement(TFAchievementPage.twilightProgressYeti);
             break;
 
         case 8:
-            player.func_71029_a(TFAchievementPage.twilightProgressGlacier);
+            player.triggerAchievement(TFAchievementPage.twilightProgressGlacier);
             break;
 
         case 9:
-            player.func_71029_a(TFAchievementPage.twilightProgressTroll);
+            player.triggerAchievement(TFAchievementPage.twilightProgressTroll);
             break;
 
         case 10:
-            player.func_71029_a(TFAchievementPage.twilightProgressThorns);
-            player.func_71029_a(TFAchievementPage.twilightProgressCastle);
+            player.triggerAchievement(TFAchievementPage.twilightProgressThorns);
+            player.triggerAchievement(TFAchievementPage.twilightProgressCastle);
         }
 
     }
@@ -107,15 +111,16 @@ public class CommandTFProgress extends CommandBase {
         return 0;
     }
 
-    public List func_71516_a(ICommandSender p_71516_1_, String[] args) {
-        return args.length == 1 ? func_71530_a(args, this.getListOfPlayers()) : (args.length == 2 ? func_71530_a(args, this.bosses) : null);
+    @Override
+    public List addTabCompletionOptions(ICommandSender p_71516_1_, String[] args) {
+        return args.length == 1 ? getListOfStringsMatchingLastWord(args, this.getListOfPlayers()) : (args.length == 2 ? getListOfStringsMatchingLastWord(args, this.bosses) : null);
     }
 
     protected String[] getListOfPlayers() {
-        return MinecraftServer.func_71276_C().func_71213_z();
+        return MinecraftServer.getServer().getAllUsernames();
     }
 
-    public boolean func_82358_a(String[] p_82358_1_, int p_82358_2_) {
+    public boolean isUsernameIndex(String[] p_82358_1_, int p_82358_2_) {
         return p_82358_2_ == 0;
     }
 }

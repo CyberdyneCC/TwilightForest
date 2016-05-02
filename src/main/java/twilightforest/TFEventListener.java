@@ -73,63 +73,63 @@ public class TFEventListener {
 
     @SubscribeEvent
     public void pickupItem(EntityItemPickupEvent event) {
-        Item item = event.item.func_92059_d().func_77973_b();
+        Item item = event.item.getEntityItem().getItem();
 
         if (item == TFItems.scepterTwilight || item == TFItems.scepterLifeDrain || item == TFItems.scepterZombie) {
             this.checkPlayerForScepterMastery(event.entityPlayer);
-            event.entityPlayer.func_71029_a(TFAchievementPage.twilightProgressLich);
+            event.entityPlayer.triggerAchievement(TFAchievementPage.twilightProgressLich);
         }
 
         if (item == TFItems.nagaScale) {
-            event.entityPlayer.func_71029_a(TFAchievementPage.twilightProgressNaga);
+            event.entityPlayer.triggerAchievement(TFAchievementPage.twilightProgressNaga);
         }
 
-        if (item == TFItems.trophy && event.item.func_92059_d().func_77960_j() == 0) {
-            event.entityPlayer.func_71029_a(TFAchievementPage.twilightKillHydra);
+        if (item == TFItems.trophy && event.item.getEntityItem().getItemDamage() == 0) {
+            event.entityPlayer.triggerAchievement(TFAchievementPage.twilightKillHydra);
         }
 
-        if (item == TFItems.trophy && event.item.func_92059_d().func_77960_j() == 1) {
-            event.entityPlayer.func_71029_a(TFAchievementPage.twilightKillNaga);
+        if (item == TFItems.trophy && event.item.getEntityItem().getItemDamage() == 1) {
+            event.entityPlayer.triggerAchievement(TFAchievementPage.twilightKillNaga);
         }
 
-        if (item == TFItems.trophy && event.item.func_92059_d().func_77960_j() == 2) {
-            event.entityPlayer.func_71029_a(TFAchievementPage.twilightKillLich);
+        if (item == TFItems.trophy && event.item.getEntityItem().getItemDamage() == 2) {
+            event.entityPlayer.triggerAchievement(TFAchievementPage.twilightKillLich);
         }
 
-        if (item == TFItems.trophy && event.item.func_92059_d().func_77960_j() == 3) {
-            event.entityPlayer.func_71029_a(TFAchievementPage.twilightProgressUrghast);
+        if (item == TFItems.trophy && event.item.getEntityItem().getItemDamage() == 3) {
+            event.entityPlayer.triggerAchievement(TFAchievementPage.twilightProgressUrghast);
         }
 
-        if (item == TFItems.trophy && event.item.func_92059_d().func_77960_j() == 4) {
-            event.entityPlayer.func_71029_a(TFAchievementPage.twilightProgressGlacier);
+        if (item == TFItems.trophy && event.item.getEntityItem().getItemDamage() == 4) {
+            event.entityPlayer.triggerAchievement(TFAchievementPage.twilightProgressGlacier);
         }
 
         if (item == TFItems.mazebreakerPick) {
-            event.entityPlayer.func_71029_a(TFAchievementPage.twilightMazebreaker);
+            event.entityPlayer.triggerAchievement(TFAchievementPage.twilightMazebreaker);
         }
 
         if (item == TFItems.meefStroganoff || item == TFItems.minotaurAxe) {
-            event.entityPlayer.func_71029_a(TFAchievementPage.twilightProgressLabyrinth);
+            event.entityPlayer.triggerAchievement(TFAchievementPage.twilightProgressLabyrinth);
         }
 
         if (item == TFItems.fieryBlood) {
-            event.entityPlayer.func_71029_a(TFAchievementPage.twilightProgressHydra);
+            event.entityPlayer.triggerAchievement(TFAchievementPage.twilightProgressHydra);
         }
 
         if (item == TFItems.phantomHelm || item == TFItems.phantomPlate) {
-            event.entityPlayer.func_71029_a(TFAchievementPage.twilightProgressKnights);
+            event.entityPlayer.triggerAchievement(TFAchievementPage.twilightProgressKnights);
         }
 
         if (item == TFItems.fieryTears) {
-            event.entityPlayer.func_71029_a(TFAchievementPage.twilightProgressUrghast);
+            event.entityPlayer.triggerAchievement(TFAchievementPage.twilightProgressUrghast);
         }
 
         if (item == TFItems.alphaFur || item == TFItems.yetiBoots || item == TFItems.yetiHelm || item == TFItems.yetiPlate || item == TFItems.yetiLegs) {
-            event.entityPlayer.func_71029_a(TFAchievementPage.twilightProgressYeti);
+            event.entityPlayer.triggerAchievement(TFAchievementPage.twilightProgressYeti);
         }
 
         if (item == TFItems.lampOfCinders) {
-            event.entityPlayer.func_71029_a(TFAchievementPage.twilightProgressTroll);
+            event.entityPlayer.triggerAchievement(TFAchievementPage.twilightProgressTroll);
         }
 
     }
@@ -138,26 +138,26 @@ public class TFEventListener {
         boolean scepterTwilight = false;
         boolean scepterLifeDrain = false;
         boolean scepterZombie = false;
-        InventoryPlayer inv = player.field_71071_by;
+        InventoryPlayer inv = player. inventory;
 
-        for (int i = 0; i < inv.func_70302_i_(); ++i) {
-            ItemStack stack = inv.func_70301_a(i);
+        for (int i = 0; i < inv.getSizeInventory(); ++i) {
+            ItemStack stack = inv.getStackInSlot(i);
 
-            if (stack != null && stack.func_77973_b() == TFItems.scepterTwilight) {
+            if (stack != null && stack.getItem() == TFItems.scepterTwilight) {
                 scepterTwilight = true;
             }
 
-            if (stack != null && stack.func_77973_b() == TFItems.scepterLifeDrain) {
+            if (stack != null && stack.getItem() == TFItems.scepterLifeDrain) {
                 scepterLifeDrain = true;
             }
 
-            if (stack != null && stack.func_77973_b() == TFItems.scepterZombie) {
+            if (stack != null && stack.getItem() == TFItems.scepterZombie) {
                 scepterZombie = true;
             }
         }
 
         if (scepterTwilight && scepterLifeDrain && scepterZombie) {
-            player.func_71029_a(TFAchievementPage.twilightLichScepters);
+            player.triggerAchievement(TFAchievementPage.twilightLichScepters);
         }
 
     }
@@ -167,46 +167,46 @@ public class TFEventListener {
         ItemStack itemStack = event.crafting;
         EntityPlayer player = event.player;
 
-        if (itemStack.func_77973_b() == TFItems.plateNaga || itemStack.func_77973_b() == TFItems.legsNaga) {
+        if (itemStack.getItem() == TFItems.plateNaga || itemStack.getItem() == TFItems.legsNaga) {
             this.checkPlayerForNagaArmorer(player);
         }
 
-        if (itemStack.func_77973_b() == TFItems.magicMapFocus) {
-            player.func_71029_a(TFAchievementPage.twilightMagicMapFocus);
+        if (itemStack.getItem() == TFItems.magicMapFocus) {
+            player.triggerAchievement(TFAchievementPage.twilightMagicMapFocus);
         }
 
-        if (itemStack.func_77973_b() == TFItems.emptyMagicMap) {
-            player.func_71029_a(TFAchievementPage.twilightMagicMap);
+        if (itemStack.getItem() == TFItems.emptyMagicMap) {
+            player.triggerAchievement(TFAchievementPage.twilightMagicMap);
         }
 
-        if (itemStack.func_77973_b() == TFItems.emptyMazeMap) {
-            player.func_71029_a(TFAchievementPage.twilightMazeMap);
+        if (itemStack.getItem() == TFItems.emptyMazeMap) {
+            player.triggerAchievement(TFAchievementPage.twilightMazeMap);
         }
 
-        if (itemStack.func_77973_b() == TFItems.emptyOreMap) {
-            player.func_71029_a(TFAchievementPage.twilightOreMap);
+        if (itemStack.getItem() == TFItems.emptyOreMap) {
+            player.triggerAchievement(TFAchievementPage.twilightOreMap);
         }
 
-        if (itemStack.func_77973_b() == Item.func_150898_a(Blocks.field_150344_f) && itemStack.field_77994_a == 64 && this.doesCraftMatrixHaveGiantLog(event.craftMatrix)) {
-            this.addToPlayerInventoryOrDrop(player, new ItemStack(Blocks.field_150344_f, 64));
-            this.addToPlayerInventoryOrDrop(player, new ItemStack(Blocks.field_150344_f, 64));
-            this.addToPlayerInventoryOrDrop(player, new ItemStack(Blocks.field_150344_f, 64));
+        if (itemStack.getItem() == Item.getItemFromBlock(Blocks.planks) && itemStack.stackSize == 64 && this.doesCraftMatrixHaveGiantLog(event.craftMatrix)) {
+            this.addToPlayerInventoryOrDrop(player, new ItemStack(Blocks.planks, 64));
+            this.addToPlayerInventoryOrDrop(player, new ItemStack(Blocks.planks, 64));
+            this.addToPlayerInventoryOrDrop(player, new ItemStack(Blocks.planks, 64));
         }
 
     }
 
     private void addToPlayerInventoryOrDrop(EntityPlayer player, ItemStack planks) {
-        if (!player.field_71071_by.func_70441_a(planks)) {
-            player.func_71019_a(planks, false);
+        if (!player. inventory.addItemStackToInventory(planks)) {
+            player.dropPlayerItemWithRandomChoice(planks, false);
         }
 
     }
 
     private boolean doesCraftMatrixHaveGiantLog(IInventory inv) {
-        for (int i = 0; i < inv.func_70302_i_(); ++i) {
-            ItemStack stack = inv.func_70301_a(i);
+        for (int i = 0; i < inv.getSizeInventory(); ++i) {
+            ItemStack stack = inv.getStackInSlot(i);
 
-            if (stack != null && stack.func_77973_b() == Item.func_150898_a(TFBlocks.giantLog)) {
+            if (stack != null && stack.getItem() == Item.getItemFromBlock(TFBlocks.giantLog)) {
                 return true;
             }
         }
@@ -217,39 +217,39 @@ public class TFEventListener {
     private void checkPlayerForNagaArmorer(EntityPlayer player) {
         boolean nagaScale = false;
         boolean legsNaga = false;
-        InventoryPlayer inv = player.field_71071_by;
+        InventoryPlayer inv = player. inventory;
 
-        for (int i = 0; i < inv.func_70302_i_(); ++i) {
-            ItemStack stack = inv.func_70301_a(i);
+        for (int i = 0; i < inv.getSizeInventory(); ++i) {
+            ItemStack stack = inv.getStackInSlot(i);
 
-            if (stack != null && stack.func_77973_b() == TFItems.nagaScale) {
+            if (stack != null && stack.getItem() == TFItems.nagaScale) {
                 nagaScale = true;
             }
 
-            if (stack != null && stack.func_77973_b() == TFItems.legsNaga) {
+            if (stack != null && stack.getItem() == TFItems.legsNaga) {
                 legsNaga = true;
             }
         }
 
         if (nagaScale && legsNaga) {
-            player.func_71029_a(TFAchievementPage.twilightNagaArmors);
+            player.triggerAchievement(TFAchievementPage.twilightNagaArmors);
         }
 
     }
 
     @SubscribeEvent
     public void harvestDrops(HarvestDropsEvent event) {
-        if (event.harvester != null && event.harvester.field_71071_by.func_70448_g() != null && event.harvester.field_71071_by.func_70448_g().func_77973_b().func_150897_b(event.block) && event.harvester.field_71071_by.func_70448_g().func_77973_b() == TFItems.fieryPick) {
+        if (event.harvester != null && event.harvester. inventory.getCurrentItem() != null && event.harvester. inventory.getCurrentItem().getItem().func_150897_b(event.block) && event.harvester. inventory.getCurrentItem().getItem() == TFItems.fieryPick) {
             ArrayList removeThese = new ArrayList(1);
             ArrayList addThese = new ArrayList(1);
             Iterator iterator = event.drops.iterator();
 
             while (iterator.hasNext()) {
                 ItemStack input = (ItemStack) iterator.next();
-                ItemStack result = FurnaceRecipes.func_77602_a().func_151395_a(input);
+                ItemStack result = FurnaceRecipes.smelting().getSmeltingResult(input);
 
                 if (result != null) {
-                    addThese.add(new ItemStack(result.func_77973_b(), input.field_77994_a));
+                    addThese.add(new ItemStack(result.getItem(), input.stackSize));
                     removeThese.add(input);
                     this.spawnSpeltXP(result, event.world, event.x, event.y, event.z);
                 }
@@ -259,7 +259,7 @@ public class TFEventListener {
             event.drops.addAll(addThese);
         }
 
-        if (this.shouldMakeGiantCobble && event.drops.size() > 0 && ((ItemStack) event.drops.get(0)).func_77973_b() == Item.func_150898_a(Blocks.field_150347_e)) {
+        if (this.shouldMakeGiantCobble && event.drops.size() > 0 && ((ItemStack) event.drops.get(0)).getItem() == Item.getItemFromBlock(Blocks.cobblestone)) {
             event.drops.remove(0);
             if (this.amountOfCobbleToReplace == 64) {
                 event.drops.add(new ItemStack(TFBlocks.giantCobble));
@@ -274,18 +274,18 @@ public class TFEventListener {
     }
 
     private void spawnSpeltXP(ItemStack smelted, World world, int x, int y, int z) {
-        float floatXP = FurnaceRecipes.func_77602_a().func_151398_b(smelted);
+        float floatXP = FurnaceRecipes.smelting().func_151398_b(smelted);
         int smeltXP = (int) floatXP;
 
-        if (floatXP > (float) smeltXP && world.field_73012_v.nextFloat() < floatXP - (float) smeltXP) {
+        if (floatXP > (float) smeltXP && world.rand.nextFloat() < floatXP - (float) smeltXP) {
             ++smeltXP;
         }
 
         while (smeltXP > 0) {
-            int splitXP = EntityXPOrb.func_70527_a(smeltXP);
+            int splitXP = EntityXPOrb.getXPSplit(smeltXP);
 
             smeltXP -= splitXP;
-            world.func_72838_d(new EntityXPOrb(world, (double) x + 0.5D, (double) y + 0.5D, (double) z + 0.5D, splitXP));
+            world.spawnEntityInWorld(new EntityXPOrb(world, (double) x + 0.5D, (double) y + 0.5D, (double) z + 0.5D, splitXP));
         }
 
     }
@@ -295,63 +295,63 @@ public class TFEventListener {
         EntityPlayer player;
         int charm1;
 
-        if (event.entityLiving instanceof EntityPlayer && event.source.field_76373_n.equals("mob") && event.source.func_76346_g() != null) {
+        if (event.entityLiving instanceof EntityPlayer && event.source.damageType.equals("mob") && event.source.getEntity() != null) {
             player = (EntityPlayer) event.entityLiving;
-            charm1 = TFEnchantment.getFieryAuraLevel(player.field_71071_by, event.source);
-            if (charm1 > 0 && player.func_70681_au().nextInt(25) < charm1) {
-                event.source.func_76346_g().func_70015_d(charm1 / 2);
+            charm1 = TFEnchantment.getFieryAuraLevel(player. inventory, event.source);
+            if (charm1 > 0 && player.getRNG().nextInt(25) < charm1) {
+                event.source.getEntity().setFire(charm1 / 2);
             }
         }
 
-        if (event.entityLiving instanceof EntityPlayer && event.source.field_76373_n.equals("mob") && event.source.func_76346_g() != null && event.source.func_76346_g() instanceof EntityLivingBase) {
+        if (event.entityLiving instanceof EntityPlayer && event.source.damageType.equals("mob") && event.source.getEntity() != null && event.source.getEntity() instanceof EntityLivingBase) {
             player = (EntityPlayer) event.entityLiving;
-            charm1 = TFEnchantment.getChillAuraLevel(player.field_71071_by, event.source);
+            charm1 = TFEnchantment.getChillAuraLevel(player. inventory, event.source);
             if (charm1 > 0) {
-                ((EntityLivingBase) event.source.func_76346_g()).func_70690_d(new PotionEffect(Potion.field_76421_d.field_76415_H, charm1 * 5 + 5, charm1));
+                ((EntityLivingBase) event.source.getEntity()).addPotionEffect(new PotionEffect(Potion.moveSlowdown.getId(), charm1 * 5 + 5, charm1));
             }
         }
 
-        if (event.source.field_76373_n.equals("arrow") && event.source.func_76346_g() != null && event.source.func_76346_g() instanceof EntityPlayer) {
-            player = (EntityPlayer) event.source.func_76346_g();
-            if (player.func_71045_bC() != null && player.func_71045_bC().func_77973_b() == TFItems.tripleBow) {
-                event.entityLiving.field_70172_ad = 0;
+        if (event.source.damageType.equals("arrow") && event.source.getEntity() != null && event.source.getEntity() instanceof EntityPlayer) {
+            player = (EntityPlayer) event.source.getEntity();
+            if (player.getCurrentEquippedItem() != null && player.getCurrentEquippedItem().getItem() == TFItems.tripleBow) {
+                event.entityLiving.hurtResistantTime = 0;
             }
         }
 
-        if (event.source.field_76373_n.equals("arrow") && event.source.func_76346_g() != null && event.source.func_76346_g() instanceof EntityPlayer) {
-            player = (EntityPlayer) event.source.func_76346_g();
-            if (player.func_71045_bC() != null && player.func_71045_bC().func_77973_b() == TFItems.iceBow) {
+        if (event.source.damageType.equals("arrow") && event.source.getEntity() != null && event.source.getEntity() instanceof EntityPlayer) {
+            player = (EntityPlayer) event.source.getEntity();
+            if (player.getCurrentEquippedItem() != null && player.getCurrentEquippedItem().getItem() == TFItems.iceBow) {
                 byte charm11 = 2;
 
-                event.entityLiving.func_70690_d(new PotionEffect(Potion.field_76421_d.field_76415_H, 200, charm11, true));
+                event.entityLiving.addPotionEffect(new PotionEffect(Potion.moveSlowdown.getId(), 200, charm11, true));
             }
         }
 
-        if (event.source.field_76373_n.equals("arrow") && event.source.func_76346_g() != null && event.source.func_76346_g() instanceof EntityPlayer) {
-            player = (EntityPlayer) event.source.func_76346_g();
-            if (player.func_71045_bC() != null && player.func_71045_bC().func_77973_b() == TFItems.enderBow) {
-                double charm12 = player.field_70165_t;
-                double effect = player.field_70163_u;
-                double sourceZ = player.field_70161_v;
-                float sourceYaw = player.field_70177_z;
-                float sourcePitch = player.field_70125_A;
+        if (event.source.damageType.equals("arrow") && event.source.getEntity() != null && event.source.getEntity() instanceof EntityPlayer) {
+            player = (EntityPlayer) event.source.getEntity();
+            if (player.getCurrentEquippedItem() != null && player.getCurrentEquippedItem().getItem() == TFItems.enderBow) {
+                double charm12 = player.posX;
+                double effect = player.posY;
+                double sourceZ = player.posZ;
+                float sourceYaw = player.rotationYaw;
+                float sourcePitch = player.rotationPitch;
 
-                player.field_70177_z = event.entityLiving.field_70177_z;
-                player.field_70125_A = event.entityLiving.field_70125_A;
-                player.func_70634_a(event.entityLiving.field_70165_t, event.entityLiving.field_70163_u, event.entityLiving.field_70161_v);
-                player.func_85030_a("mob.endermen.portal", 1.0F, 1.0F);
-                event.entityLiving.func_70080_a(charm12, effect, sourceZ, sourceYaw, sourcePitch);
-                event.entityLiving.func_85030_a("mob.endermen.portal", 1.0F, 1.0F);
+                player.rotationYaw = event.entityLiving.rotationYaw;
+                player.rotationPitch = event.entityLiving.rotationPitch;
+                player.setPositionAndUpdate(event.entityLiving.posX, event.entityLiving.posY, event.entityLiving.posZ);
+                player.playSound("mob.endermen.portal", 1.0F, 1.0F);
+                event.entityLiving.setPositionAndRotation(charm12, effect, sourceZ, sourceYaw, sourcePitch);
+                event.entityLiving.playSound("mob.endermen.portal", 1.0F, 1.0F);
             }
         }
 
         if (event.entityLiving instanceof EntityPlayer && this.willEntityDie(event)) {
             player = (EntityPlayer) event.entityLiving;
             boolean charm13 = false;
-            boolean charm2 = player.field_71071_by.func_146026_a(TFItems.charmOfLife2);
+            boolean charm2 = player. inventory.consumeInventoryItem(TFItems.charmOfLife2);
 
             if (!charm2) {
-                charm13 = player.field_71071_by.func_146026_a(TFItems.charmOfLife1);
+                charm13 = player. inventory.consumeInventoryItem(TFItems.charmOfLife1);
             }
 
             if (charm2 || charm13) {
@@ -359,25 +359,25 @@ public class TFEventListener {
                 event.setCanceled(true);
                 event.ammount = 0.0F;
                 if (charm13) {
-                    player.func_70606_j(8.0F);
-                    player.func_70690_d(new PotionEffect(Potion.field_76428_l.field_76415_H, 100, 0));
+                    player.setHealth(8.0F);
+                    player.addPotionEffect(new PotionEffect(Potion.regeneration.getId(), 100, 0));
                 }
 
                 if (charm2) {
-                    player.func_70606_j((float) player.func_110148_a(SharedMonsterAttributes.field_111267_a).func_111125_b());
-                    player.func_70690_d(new PotionEffect(Potion.field_76428_l.field_76415_H, 600, 3));
-                    player.func_70690_d(new PotionEffect(Potion.field_76429_m.field_76415_H, 600, 0));
-                    player.func_70690_d(new PotionEffect(Potion.field_76426_n.field_76415_H, 600, 0));
+                    player.setHealth((float) player.getEntityAttribute(SharedMonsterAttributes.maxHealth).getBaseValue());
+                    player.addPotionEffect(new PotionEffect(Potion.regeneration.getId(), 600, 3));
+                    player.addPotionEffect(new PotionEffect(Potion.resistance.getId(), 600, 0));
+                    player.addPotionEffect(new PotionEffect(Potion.fireResistance.getId(), 600, 0));
                 }
 
-                EntityTFCharmEffect effect1 = new EntityTFCharmEffect(player.field_70170_p, player, charm13 ? TFItems.charmOfLife1 : TFItems.charmOfLife2);
+                EntityTFCharmEffect effect1 = new EntityTFCharmEffect(player.worldObj, player, charm13 ? TFItems.charmOfLife1 : TFItems.charmOfLife2);
 
-                player.field_70170_p.func_72838_d(effect1);
-                EntityTFCharmEffect effect2 = new EntityTFCharmEffect(player.field_70170_p, player, charm13 ? TFItems.charmOfLife1 : TFItems.charmOfLife2);
+                player.worldObj.spawnEntityInWorld(effect1);
+                EntityTFCharmEffect effect2 = new EntityTFCharmEffect(player.worldObj, player, charm13 ? TFItems.charmOfLife1 : TFItems.charmOfLife2);
 
                 effect2.offset = 3.1415927F;
-                player.field_70170_p.func_72838_d(effect2);
-                player.field_70170_p.func_72908_a(player.field_70165_t + 0.5D, player.field_70163_u + 0.5D, player.field_70161_v + 0.5D, "mob.zombie.unfect", 1.5F, 1.0F);
+                player.worldObj.spawnEntityInWorld(effect2);
+                player.worldObj.playSoundEffect(player.posX + 0.5D, player.posY + 0.5D, player.posZ + 0.5D, "mob.zombie.unfect", 1.5F, 1.0F);
             }
         }
 
@@ -389,23 +389,23 @@ public class TFEventListener {
         EntityLivingBase living = event.entityLiving;
         int resistance;
 
-        if (!source.func_76363_c()) {
-            resistance = 25 - living.func_70658_aO();
+        if (!source.isUnblockable()) {
+            resistance = 25 - living.getTotalArmorValue();
             amount = amount * (float) resistance / 25.0F;
         }
 
-        if (living.func_70644_a(Potion.field_76429_m)) {
-            resistance = 25 - (living.func_70660_b(Potion.field_76429_m).func_76458_c() + 1) * 5;
+        if (living.isPotionActive(Potion.resistance)) {
+            resistance = 25 - (living.getActivePotionEffect(Potion.resistance).getAmplifier() + 1) * 5;
             amount = amount * (float) resistance / 25.0F;
         }
 
-        return Math.ceil((double) amount) >= Math.floor((double) living.func_110143_aJ());
+        return Math.ceil((double) amount) >= Math.floor((double) living.getHealth());
     }
 
     @SubscribeEvent
     public void bonemealUsed(BonemealEvent event) {
-        if (event.block == TFBlocks.sapling && !event.world.field_72995_K) {
-            ((BlockSapling) TFBlocks.sapling).func_149878_d(event.world, event.x, event.y, event.z, event.world.field_73012_v);
+        if (event.block == TFBlocks.sapling && !event.world.isRemote) {
+            ((BlockSapling) TFBlocks.sapling).func_149878_d(event.world, event.x, event.y, event.z, event.world.rand);
             event.setResult(Result.ALLOW);
         }
 
@@ -413,59 +413,59 @@ public class TFEventListener {
 
     @SubscribeEvent
     public void livingDies(LivingDeathEvent event) {
-        if (event.entityLiving instanceof EntityPlayer && !event.entityLiving.field_70170_p.func_82736_K().func_82766_b("keepInventory")) {
+        if (event.entityLiving instanceof EntityPlayer && !event.entityLiving.worldObj.getGameRules().getGameRuleBooleanValue("keepInventory")) {
             EntityPlayer player = (EntityPlayer) event.entityLiving;
             InventoryPlayer keepInventory;
             int i;
 
-            if (player.field_71071_by.func_146026_a(TFItems.charmOfKeeping3)) {
+            if (player. inventory.consumeInventoryItem(TFItems.charmOfKeeping3)) {
                 FMLLog.info("[TwilightForest] Player died with charm of keeping III!  Keep it all!", new Object[0]);
                 keepInventory = new InventoryPlayer((EntityPlayer) null);
                 this.keepAllArmor(player, keepInventory);
 
-                for (i = 0; i < player.field_71071_by.field_70462_a.length; ++i) {
-                    keepInventory.field_70462_a[i] = ItemStack.func_77944_b(player.field_71071_by.field_70462_a[i]);
-                    player.field_71071_by.field_70462_a[i] = null;
+                for (i = 0; i < player. inventory.mainInventory.length; ++i) {
+                    keepInventory.mainInventory[i] = ItemStack.copyItemStack(player. inventory.mainInventory[i]);
+                    player. inventory.mainInventory[i] = null;
                 }
 
-                keepInventory.func_70437_b(new ItemStack(TFItems.charmOfKeeping3));
-                this.playerKeepsMap.put(player.func_70005_c_(), keepInventory);
-            } else if (player.field_71071_by.func_146026_a(TFItems.charmOfKeeping2)) {
+                keepInventory.setItemStack(new ItemStack(TFItems.charmOfKeeping3));
+                this.playerKeepsMap.put(player.getCommandSenderName(), keepInventory);
+            } else if (player. inventory.consumeInventoryItem(TFItems.charmOfKeeping2)) {
                 FMLLog.info("[TwilightForest] Player died with charm of keeping II!  Keep armor and hotbar!", new Object[0]);
                 keepInventory = new InventoryPlayer((EntityPlayer) null);
                 this.keepAllArmor(player, keepInventory);
 
                 for (i = 0; i < 9; ++i) {
-                    keepInventory.field_70462_a[i] = ItemStack.func_77944_b(player.field_71071_by.field_70462_a[i]);
-                    player.field_71071_by.field_70462_a[i] = null;
+                    keepInventory.mainInventory[i] = ItemStack.copyItemStack(player. inventory.mainInventory[i]);
+                    player. inventory.mainInventory[i] = null;
                 }
 
-                keepInventory.func_70437_b(new ItemStack(TFItems.charmOfKeeping2));
-                this.playerKeepsMap.put(player.func_70005_c_(), keepInventory);
-            } else if (player.field_71071_by.func_146026_a(TFItems.charmOfKeeping1)) {
+                keepInventory.setItemStack(new ItemStack(TFItems.charmOfKeeping2));
+                this.playerKeepsMap.put(player.getCommandSenderName(), keepInventory);
+            } else if (player. inventory.consumeInventoryItem(TFItems.charmOfKeeping1)) {
                 FMLLog.info("[TwilightForest] Player died with charm of keeping I!  Keep armor and current item!", new Object[0]);
                 keepInventory = new InventoryPlayer((EntityPlayer) null);
                 this.keepAllArmor(player, keepInventory);
-                if (player.field_71071_by.func_70448_g() != null) {
-                    keepInventory.field_70462_a[player.field_71071_by.field_70461_c] = ItemStack.func_77944_b(player.field_71071_by.field_70462_a[player.field_71071_by.field_70461_c]);
-                    player.field_71071_by.field_70462_a[player.field_71071_by.field_70461_c] = null;
+                if (player. inventory.getCurrentItem() != null) {
+                    keepInventory.mainInventory[player. inventory.currentItem] = ItemStack.copyItemStack(player. inventory.mainInventory[player. inventory.currentItem]);
+                    player. inventory.mainInventory[player. inventory.currentItem] = null;
                 }
 
-                keepInventory.func_70437_b(new ItemStack(TFItems.charmOfKeeping1));
-                this.playerKeepsMap.put(player.func_70005_c_(), keepInventory);
+                keepInventory.setItemStack(new ItemStack(TFItems.charmOfKeeping1));
+                this.playerKeepsMap.put(player.getCommandSenderName(), keepInventory);
             }
 
-            if (player.field_71071_by.func_146028_b(TFItems.towerKey)) {
+            if (player. inventory.hasItem(TFItems.towerKey)) {
                 keepInventory = this.retrieveOrMakeKeepInventory(player);
 
-                for (i = 0; i < player.field_71071_by.field_70462_a.length; ++i) {
-                    if (player.field_71071_by.field_70462_a[i] != null && player.field_71071_by.field_70462_a[i].func_77973_b() == TFItems.towerKey) {
-                        keepInventory.field_70462_a[i] = ItemStack.func_77944_b(player.field_71071_by.field_70462_a[i]);
-                        player.field_71071_by.field_70462_a[i] = null;
+                for (i = 0; i < player. inventory.mainInventory.length; ++i) {
+                    if (player. inventory.mainInventory[i] != null && player. inventory.mainInventory[i].getItem() == TFItems.towerKey) {
+                        keepInventory.mainInventory[i] = ItemStack.copyItemStack(player. inventory.mainInventory[i]);
+                        player. inventory.mainInventory[i] = null;
                     }
                 }
 
-                this.playerKeepsMap.put(player.func_70005_c_(), keepInventory);
+                this.playerKeepsMap.put(player.getCommandSenderName(), keepInventory);
             }
         }
 
@@ -476,13 +476,13 @@ public class TFEventListener {
     }
 
     private InventoryPlayer retrieveOrMakeKeepInventory(EntityPlayer player) {
-        return this.playerKeepsMap.containsKey(player.func_70005_c_()) ? (InventoryPlayer) this.playerKeepsMap.get(player.func_70005_c_()) : new InventoryPlayer((EntityPlayer) null);
+        return this.playerKeepsMap.containsKey(player.getCommandSenderName()) ? (InventoryPlayer) this.playerKeepsMap.get(player.getCommandSenderName()) : new InventoryPlayer((EntityPlayer) null);
     }
 
     private void keepAllArmor(EntityPlayer player, InventoryPlayer keepInventory) {
-        for (int i = 0; i < player.field_71071_by.field_70460_b.length; ++i) {
-            keepInventory.field_70460_b[i] = ItemStack.func_77944_b(player.field_71071_by.field_70460_b[i]);
-            player.field_71071_by.field_70460_b[i] = null;
+        for (int i = 0; i < player. inventory.armorInventory.length; ++i) {
+            keepInventory.armorInventory[i] = ItemStack.copyItemStack(player. inventory.armorInventory[i]);
+            player. inventory.armorInventory[i] = null;
         }
 
     }
@@ -491,36 +491,36 @@ public class TFEventListener {
     public void onPlayerRespawn(PlayerRespawnEvent event) {
         EntityPlayer player = event.player;
 
-        if (this.playerKeepsMap.containsKey(player.func_70005_c_())) {
-            FMLLog.info("[TwilightForest] Player %s respawned and recieved items held in storage", new Object[] { player.func_70005_c_()});
-            InventoryPlayer keepInventory = (InventoryPlayer) this.playerKeepsMap.get(player.func_70005_c_());
+        if (this.playerKeepsMap.containsKey(player.getCommandSenderName())) {
+            FMLLog.info("[TwilightForest] Player %s respawned and recieved items held in storage", new Object[] { player.getCommandSenderName()});
+            InventoryPlayer keepInventory = (InventoryPlayer) this.playerKeepsMap.get(player.getCommandSenderName());
 
             int effect;
 
-            for (effect = 0; effect < player.field_71071_by.field_70460_b.length; ++effect) {
-                if (keepInventory.field_70460_b[effect] != null) {
-                    player.field_71071_by.field_70460_b[effect] = keepInventory.field_70460_b[effect];
+            for (effect = 0; effect < player. inventory.armorInventory.length; ++effect) {
+                if (keepInventory.armorInventory[effect] != null) {
+                    player. inventory.armorInventory[effect] = keepInventory.armorInventory[effect];
                 }
             }
 
-            for (effect = 0; effect < player.field_71071_by.field_70462_a.length; ++effect) {
-                if (keepInventory.field_70462_a[effect] != null) {
-                    player.field_71071_by.field_70462_a[effect] = keepInventory.field_70462_a[effect];
+            for (effect = 0; effect < player. inventory.mainInventory.length; ++effect) {
+                if (keepInventory.mainInventory[effect] != null) {
+                    player. inventory.mainInventory[effect] = keepInventory.mainInventory[effect];
                 }
             }
 
-            if (keepInventory.func_70445_o() != null) {
-                EntityTFCharmEffect entitytfcharmeffect = new EntityTFCharmEffect(player.field_70170_p, player, keepInventory.func_70445_o().func_77973_b());
+            if (keepInventory.getItemStack() != null) {
+                EntityTFCharmEffect entitytfcharmeffect = new EntityTFCharmEffect(player.worldObj, player, keepInventory.getItemStack().getItem());
 
-                player.field_70170_p.func_72838_d(entitytfcharmeffect);
-                EntityTFCharmEffect effect2 = new EntityTFCharmEffect(player.field_70170_p, player, keepInventory.func_70445_o().func_77973_b());
+                player.worldObj.spawnEntityInWorld(entitytfcharmeffect);
+                EntityTFCharmEffect effect2 = new EntityTFCharmEffect(player.worldObj, player, keepInventory.getItemStack().getItem());
 
                 effect2.offset = 3.1415927F;
-                player.field_70170_p.func_72838_d(effect2);
-                player.field_70170_p.func_72908_a(player.field_70165_t + 0.5D, player.field_70163_u + 0.5D, player.field_70161_v + 0.5D, "mob.zombie.unfect", 1.5F, 1.0F);
+                player.worldObj.spawnEntityInWorld(effect2);
+                player.worldObj.playSoundEffect(player.posX + 0.5D, player.posY + 0.5D, player.posZ + 0.5D, "mob.zombie.unfect", 1.5F, 1.0F);
             }
 
-            this.playerKeepsMap.remove(player.func_70005_c_());
+            this.playerKeepsMap.remove(player.getCommandSenderName());
         }
 
     }
@@ -529,13 +529,13 @@ public class TFEventListener {
     public void onPlayerLogout(PlayerLoggedOutEvent event) {
         EntityPlayer player = event.player;
 
-        if (this.playerKeepsMap.containsKey(player.func_70005_c_())) {
-            FMLLog.warning("[TwilightForest] Mod was keeping inventory items in reserve for player %s but they logged out!  Items are being dropped.", new Object[] { player.func_70005_c_()});
-            InventoryPlayer keepInventory = (InventoryPlayer) this.playerKeepsMap.get(player.func_70005_c_());
+        if (this.playerKeepsMap.containsKey(player.getCommandSenderName())) {
+            FMLLog.warning("[TwilightForest] Mod was keeping inventory items in reserve for player %s but they logged out!  Items are being dropped.", new Object[] { player.getCommandSenderName()});
+            InventoryPlayer keepInventory = (InventoryPlayer) this.playerKeepsMap.get(player.getCommandSenderName());
 
-            keepInventory.field_70458_d = player;
-            keepInventory.func_70436_m();
-            this.playerKeepsMap.remove(player.func_70005_c_());
+            keepInventory.player = player;
+            keepInventory.dropAllItems();
+            this.playerKeepsMap.remove(player.getCommandSenderName());
         }
 
     }
@@ -543,7 +543,7 @@ public class TFEventListener {
     @SubscribeEvent
     @SideOnly(Side.CLIENT)
     public boolean preOverlay(Pre event) {
-        if (event.type == ElementType.HEALTHMOUNT && this.isRidingUnfriendly(Minecraft.func_71410_x().field_71439_g)) {
+        if (event.type == ElementType.HEALTHMOUNT && this.isRidingUnfriendly(Minecraft.getMinecraft().thePlayer)) {
             event.setCanceled(true);
             return false;
         } else {
@@ -553,27 +553,27 @@ public class TFEventListener {
 
     @SubscribeEvent
     public boolean livingUpdate(LivingUpdateEvent event) {
-        if (event.entity instanceof EntityPlayer && event.entity.func_70093_af() && this.isRidingUnfriendly(event.entityLiving)) {
-            event.entity.func_70095_a(false);
+        if (event.entity instanceof EntityPlayer && event.entity.isSneaking() && this.isRidingUnfriendly(event.entityLiving)) {
+            event.entity.setSneaking(false);
         }
 
         return true;
     }
 
     private boolean isRidingUnfriendly(EntityLivingBase entity) {
-        return entity.func_70115_ae() && (entity.field_70154_o instanceof EntityTFPinchBeetle || entity.field_70154_o instanceof EntityTFYeti);
+        return entity.isRiding() && (entity instanceof EntityTFPinchBeetle || entity instanceof EntityTFYeti);
     }
 
     @SubscribeEvent
     public void breakBlock(BreakEvent event) {
-        if (!event.getPlayer().field_71075_bZ.field_75098_d && this.isAreaProtected(event.world, event.getPlayer(), event.x, event.y, event.z) && this.isBlockProtectedFromBreaking(event.world, event.x, event.y, event.z)) {
+        if (!event.getPlayer().capabilities.isCreativeMode && this.isAreaProtected(event.world, event.getPlayer(), event.x, event.y, event.z) && this.isBlockProtectedFromBreaking(event.world, event.x, event.y, event.z)) {
             event.setCanceled(true);
-        } else if (!this.isBreakingWithGiantPick && event.getPlayer().func_71045_bC() != null && event.getPlayer().func_71045_bC().func_77973_b() == TFItems.giantPick && event.getPlayer().func_71045_bC().func_77973_b().func_150897_b(event.block)) {
+        } else if (!this.isBreakingWithGiantPick && event.getPlayer().getCurrentEquippedItem() != null && event.getPlayer().getCurrentEquippedItem().getItem() == TFItems.giantPick && event.getPlayer().getCurrentEquippedItem().getItem().func_150897_b(event.block)) {
             this.isBreakingWithGiantPick = true;
             int bx = event.x >> 2 << 2;
             int by = event.y >> 2 << 2;
             int bz = event.z >> 2 << 2;
-            boolean allCobble = event.block.func_149650_a(event.blockMetadata, event.world.field_73012_v, 0) == Item.func_150898_a(Blocks.field_150347_e);
+            boolean allCobble = event.block.getItemDropped(event.blockMetadata, event.world.rand, 0) == Item.getItemFromBlock(Blocks.cobblestone);
 
             int dx;
             int dy;
@@ -584,14 +584,14 @@ public class TFEventListener {
             for (dx = 0; dx < 4; ++dx) {
                 for (dy = 0; dy < 4; ++dy) {
                     for (dz = 0; dz < 4; ++dz) {
-                        blockThere = event.world.func_147439_a(bx + dx, by + dy, bz + dz);
-                        metaThere = event.world.func_72805_g(bx + dx, by + dy, bz + dz);
-                        allCobble &= blockThere.func_149650_a(metaThere, event.world.field_73012_v, 0) == Item.func_150898_a(Blocks.field_150347_e);
+                        blockThere = event.world.getBlock(bx + dx, by + dy, bz + dz);
+                        metaThere = event.world.getBlockMetadata(bx + dx, by + dy, bz + dz);
+                        allCobble &= blockThere.getItemDropped(metaThere, event.world.rand, 0) == Item.getItemFromBlock(Blocks.cobblestone);
                     }
                 }
             }
 
-            if (allCobble && !event.getPlayer().field_71075_bZ.field_75098_d) {
+            if (allCobble && !event.getPlayer().capabilities.isCreativeMode) {
                 this.shouldMakeGiantCobble = true;
                 this.amountOfCobbleToReplace = 64;
             } else {
@@ -602,12 +602,12 @@ public class TFEventListener {
             for (dx = 0; dx < 4; ++dx) {
                 for (dy = 0; dy < 4; ++dy) {
                     for (dz = 0; dz < 4; ++dz) {
-                        blockThere = event.world.func_147439_a(bx + dx, by + dy, bz + dz);
-                        metaThere = event.world.func_72805_g(bx + dx, by + dy, bz + dz);
+                        blockThere = event.world.getBlock(bx + dx, by + dy, bz + dz);
+                        metaThere = event.world.getBlockMetadata(bx + dx, by + dy, bz + dz);
                         if ((event.x != bx + dx || event.y != by + dy || event.z != bz + dz) && blockThere == event.block && metaThere == event.blockMetadata && event.getPlayer() instanceof EntityPlayerMP) {
                             EntityPlayerMP playerMP = (EntityPlayerMP) event.getPlayer();
 
-                            playerMP.field_71134_c.func_73084_b(bx + dx, by + dy, bz + dz);
+                            playerMP.theItemInWorldManager.tryHarvestBlock(bx + dx, by + dy, bz + dz);
                         }
                     }
                 }
@@ -620,50 +620,50 @@ public class TFEventListener {
 
     @SubscribeEvent
     public void rightClickBlock(PlayerInteractEvent event) {
-        if (event.action == Action.RIGHT_CLICK_BLOCK && event.entityPlayer.field_70170_p.field_73011_w instanceof WorldProviderTwilightForest && !event.entityPlayer.field_71075_bZ.field_75098_d) {
-            World currentItem = event.entityPlayer.field_70170_p;
+        if (event.action == Action.RIGHT_CLICK_BLOCK && event.entityPlayer.worldObj.provider instanceof WorldProviderTwilightForest && !event.entityPlayer.capabilities.isCreativeMode) {
+            World currentItem = event.entityPlayer.worldObj;
             EntityPlayer player = event.entityPlayer;
             int x = event.x;
             int y = event.y;
             int z = event.z;
 
-            if (!currentItem.field_72995_K && this.isBlockProtectedFromInteraction(currentItem, x, y, z) && this.isAreaProtected(currentItem, player, x, y, z)) {
+            if (!currentItem.isRemote && this.isBlockProtectedFromInteraction(currentItem, x, y, z) && this.isAreaProtected(currentItem, player, x, y, z)) {
                 event.useBlock = Result.DENY;
             }
         }
 
-        ItemStack currentItem1 = event.entityPlayer.field_71071_by.func_70448_g();
+        ItemStack currentItem1 = event.entityPlayer. inventory.getCurrentItem();
 
-        if (currentItem1 != null && (currentItem1.func_77973_b() == TFItems.fierySword || currentItem1.func_77973_b() == TFItems.fieryPick) && this.checkPlayerForFieryArmor(event.entityPlayer)) {
-            event.entityPlayer.func_71029_a(TFAchievementPage.twilightFierySet);
+        if (currentItem1 != null && (currentItem1.getItem() == TFItems.fierySword || currentItem1.getItem() == TFItems.fieryPick) && this.checkPlayerForFieryArmor(event.entityPlayer)) {
+            event.entityPlayer.triggerAchievement(TFAchievementPage.twilightFierySet);
         }
 
     }
 
     private boolean isBlockProtectedFromInteraction(World world, int x, int y, int z) {
-        Block block = world.func_147439_a(x, y, z);
+        Block block = world.getBlock(x, y, z);
 
-        return block == TFBlocks.towerDevice || block == Blocks.field_150486_ae || block == Blocks.field_150447_bR || block == Blocks.field_150430_aB || block == Blocks.field_150471_bO || block == Blocks.field_150442_at;
+        return block == TFBlocks.towerDevice || block == Blocks.chest || block == Blocks.trapped_chest || block == Blocks.stone_button || block == Blocks.wooden_button || block == Blocks.lever;
     }
 
     private boolean isBlockProtectedFromBreaking(World world, int x, int y, int z) {
-        Block block = world.func_147439_a(x, y, z);
+        Block block = world.getBlock(x, y, z);
 
-        return !block.func_149739_a().equals("tile.openblocks.grave");
+        return !block.getUnlocalizedName().equals("tile.openblocks.grave");
     }
 
     private boolean checkPlayerForFieryArmor(EntityPlayer entityPlayer) {
-        ItemStack[] armor = entityPlayer.field_71071_by.field_70460_b;
+        ItemStack[] armor = entityPlayer. inventory.armorInventory;
 
-        return armor[0] != null && armor[0].func_77973_b() == TFItems.fieryBoots ? true : (armor[1] != null && armor[1].func_77973_b() == TFItems.fieryLegs ? true : (armor[2] != null && armor[2].func_77973_b() == TFItems.fieryPlate ? true : armor[3] != null && armor[3].func_77973_b() == TFItems.fieryHelm));
+        return armor[0] != null && armor[0].getItem() == TFItems.fieryBoots ? true : (armor[1] != null && armor[1].getItem() == TFItems.fieryLegs ? true : (armor[2] != null && armor[2].getItem() == TFItems.fieryPlate ? true : armor[3] != null && armor[3].getItem() == TFItems.fieryHelm));
     }
 
     private boolean isAreaProtected(World world, EntityPlayer player, int x, int y, int z) {
-        if (world.func_82736_K().func_82766_b("tfEnforcedProgression") && world.field_73011_w instanceof WorldProviderTwilightForest) {
-            ChunkProviderTwilightForest chunkProvider = ((WorldProviderTwilightForest) world.field_73011_w).getChunkProvider();
+        if (world.getGameRules().getGameRuleBooleanValue("tfEnforcedProgression") && world.provider instanceof WorldProviderTwilightForest) {
+            ChunkProviderTwilightForest chunkProvider = ((WorldProviderTwilightForest) world.provider).getChunkProvider();
 
             if (chunkProvider != null && chunkProvider.isBlockInStructureBB(x, y, z)) {
-                TFFeature nearbyFeature = ((TFWorldChunkManager) world.field_73011_w.field_76578_c).getFeatureAt(x, z, world);
+                TFFeature nearbyFeature = ((TFWorldChunkManager) world.provider.worldChunkMgr).getFeatureAt(x, z, world);
 
                 if (!nearbyFeature.doesPlayerHaveRequiredAchievement(player) && chunkProvider.isBlockProtected(x, y, z)) {
                     StructureBoundingBox sbb = chunkProvider.getSBBAt(x, y, z);
@@ -680,28 +680,28 @@ public class TFEventListener {
 
     private void sendAreaProtectionPacket(World world, int x, int y, int z, StructureBoundingBox sbb) {
         FMLProxyPacket message = TFGenericPacketHandler.makeAreaProtectionPacket(sbb, x, y, z);
-        TargetPoint targetPoint = new TargetPoint(world.field_73011_w.field_76574_g, (double) x, (double) y, (double) z, 64.0D);
+        TargetPoint targetPoint = new TargetPoint(world.provider.dimensionId, (double) x, (double) y, (double) z, 64.0D);
 
         TwilightForestMod.genericChannel.sendToAllAround(message, targetPoint);
     }
 
     @SubscribeEvent
     public void livingAttack(LivingAttackEvent event) {
-        if (event.entityLiving instanceof IMob && event.source.func_76346_g() instanceof EntityPlayer && !((EntityPlayer) event.source.func_76346_g()).field_71075_bZ.field_75098_d && event.entityLiving.field_70170_p.field_73011_w instanceof WorldProviderTwilightForest && event.entityLiving.field_70170_p.func_82736_K().func_82766_b("tfEnforcedProgression")) {
-            ChunkProviderTwilightForest chunkProvider = ((WorldProviderTwilightForest) event.entityLiving.field_70170_p.field_73011_w).getChunkProvider();
-            int mx = MathHelper.func_76128_c(event.entityLiving.field_70165_t);
-            int my = MathHelper.func_76128_c(event.entityLiving.field_70163_u);
-            int mz = MathHelper.func_76128_c(event.entityLiving.field_70161_v);
+        if (event.entityLiving instanceof IMob && event.source.getEntity() instanceof EntityPlayer && !((EntityPlayer) event.source.getEntity()).capabilities.isCreativeMode && event.entityLiving.worldObj.provider instanceof WorldProviderTwilightForest && event.entityLiving.worldObj.getGameRules().getGameRuleBooleanValue("tfEnforcedProgression")) {
+            ChunkProviderTwilightForest chunkProvider = ((WorldProviderTwilightForest) event.entityLiving.worldObj.provider).getChunkProvider();
+            int mx = MathHelper.floor_double(event.entityLiving.posX);
+            int my = MathHelper.floor_double(event.entityLiving.posY);
+            int mz = MathHelper.floor_double(event.entityLiving.posZ);
 
             if (chunkProvider != null && chunkProvider.isBlockInStructureBB(mx, my, mz) && chunkProvider.isBlockProtected(mx, my, mz)) {
-                TFFeature nearbyFeature = ((TFWorldChunkManager) event.entityLiving.field_70170_p.field_73011_w.field_76578_c).getFeatureAt(mx, mz, event.entityLiving.field_70170_p);
+                TFFeature nearbyFeature = ((TFWorldChunkManager) event.entityLiving.worldObj.provider.worldChunkMgr).getFeatureAt(mx, mz, event.entityLiving.worldObj);
 
-                if (!nearbyFeature.doesPlayerHaveRequiredAchievement((EntityPlayer) event.source.func_76346_g())) {
+                if (!nearbyFeature.doesPlayerHaveRequiredAchievement((EntityPlayer) event.source.getEntity())) {
                     event.setResult(Result.DENY);
                     event.setCanceled(true);
 
                     for (int i = 0; i < 20; ++i) {
-                        TwilightForestMod.proxy.spawnParticle(event.entityLiving.field_70170_p, "protection", event.entityLiving.field_70165_t, event.entityLiving.field_70163_u, event.entityLiving.field_70161_v, 0.0D, 0.0D, 0.0D);
+                        TwilightForestMod.proxy.spawnParticle(event.entityLiving.worldObj, "protection", event.entityLiving.posX, event.entityLiving.posY, event.entityLiving.posZ, 0.0D, 0.0D, 0.0D);
                     }
                 }
             }
@@ -713,19 +713,19 @@ public class TFEventListener {
     public void playerLogsIn(PlayerLoggedInEvent event) {
         TwilightForestMod.hasBiomeIdConflicts = TFBiomeBase.areThereBiomeIdConflicts();
         if (TwilightForestMod.hasBiomeIdConflicts) {
-            event.player.func_145747_a(new ChatComponentText("[TwilightForest] Biome ID conflict detected.  Fix by editing the config file."));
+            event.player.addChatMessage(new ChatComponentText("[TwilightForest] Biome ID conflict detected.  Fix by editing the config file."));
         }
 
-        if (!event.player.field_70170_p.field_72995_K && event.player instanceof EntityPlayerMP) {
-            this.sendEnforcedProgressionStatus((EntityPlayerMP) event.player, event.player.field_70170_p.func_82736_K().func_82766_b("tfEnforcedProgression"));
+        if (!event.player.worldObj.isRemote && event.player instanceof EntityPlayerMP) {
+            this.sendEnforcedProgressionStatus((EntityPlayerMP) event.player, event.player.worldObj.getGameRules().getGameRuleBooleanValue("tfEnforcedProgression"));
         }
 
     }
 
     @SubscribeEvent
     public void playerPortals(PlayerChangedDimensionEvent event) {
-        if (!event.player.field_70170_p.field_72995_K && event.player instanceof EntityPlayerMP && event.toDim == TwilightForestMod.dimensionID) {
-            this.sendEnforcedProgressionStatus((EntityPlayerMP) event.player, event.player.field_70170_p.func_82736_K().func_82766_b("tfEnforcedProgression"));
+        if (!event.player.worldObj.isRemote && event.player instanceof EntityPlayerMP && event.toDim == TwilightForestMod.dimensionID) {
+            this.sendEnforcedProgressionStatus((EntityPlayerMP) event.player, event.player.worldObj.getGameRules().getGameRuleBooleanValue("tfEnforcedProgression"));
         }
 
     }
@@ -736,9 +736,9 @@ public class TFEventListener {
 
     @SubscribeEvent
     public void worldLoaded(Load event) {
-        if (!event.world.field_72995_K && !event.world.func_82736_K().func_82765_e("tfEnforcedProgression")) {
+        if (!event.world.isRemote && !event.world.getGameRules().hasRule("tfEnforcedProgression")) {
             FMLLog.info("[TwilightForest] Loaded a world with the tfEnforcedProgression game rule not defined.  Defining it.", new Object[0]);
-            event.world.func_82736_K().func_82769_a("tfEnforcedProgression", "true");
+            event.world.getGameRules().addGameRule("tfEnforcedProgression", "true");
         }
 
     }
