@@ -30,12 +30,12 @@ public class RenderTFThrownAxe extends RenderItem {
     public void doRenderItem(EntityItem par1EntityItem, double x, double y, double z, float rotation, float spin) {
         GL11.glPushMatrix();
         GL11.glTranslatef((float) x, (float) y, (float) z);
-        GL11.glEnable('耺');
+        GL11.glEnable(GL11.GL_LIGHTING);
         GL11.glScalef(1.25F, 1.25F, 1.25F);
         IIcon icon1 = this.myItem.func_77617_a(0);
 
         this.renderDroppedItem(icon1, rotation, spin);
-        GL11.glDisable('耺');
+        GL11.glDisable(GL11.GL_LIGHTING);
         GL11.glPopMatrix();
     }
 

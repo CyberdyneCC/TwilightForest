@@ -297,14 +297,14 @@ public class TwilightForestMod {
         FMLCommonHandler.instance().bus().register(TwilightForestMod.tickHandler);
         Item portalItem;
 
-        if (Item.field_150901_e.func_148741_d(TwilightForestMod.portalCreationItemString)) {
-            portalItem = (Item) Item.field_150901_e.func_82594_a(TwilightForestMod.portalCreationItemString);
+        if (Item.itemRegistry.containsKey(TwilightForestMod.portalCreationItemString)) {
+            portalItem = (Item) Item.itemRegistry.getObject(TwilightForestMod.portalCreationItemString);
             if (portalItem != Items.field_151045_i) {
-                FMLLog.info("Set Twilight Forest portal item to %s", new Object[] { portalItem.func_77658_a()});
+                FMLLog.info("Set Twilight Forest portal item to %s", new Object[] { portalItem.getUnlocalizedName()});
             }
         } else if (Block.field_149771_c.func_148741_d(TwilightForestMod.portalCreationItemString)) {
-            portalItem = Item.func_150898_a((Block) Block.field_149771_c.func_82594_a(TwilightForestMod.portalCreationItemString));
-            FMLLog.info("Set Twilight Forest portal item to %s", new Object[] { portalItem.func_77658_a()});
+            portalItem = Item.getItemFromBlock((Block) Block.field_149771_c.func_82594_a(TwilightForestMod.portalCreationItemString));
+            FMLLog.info("Set Twilight Forest portal item to %s", new Object[] { portalItem.getUnlocalizedName()});
         } else {
             FMLLog.info("Twilight Forest config lists portal item as \'%s\'.  Not found, defaulting to diamond.", new Object[] { TwilightForestMod.portalCreationItemString});
             portalItem = Items.field_151045_i;
@@ -443,7 +443,7 @@ public class TwilightForestMod {
     private void registerThaumcraftIntegration() {}
 
     private void registerDispenseBehaviors(MinecraftServer minecraftServer) {
-        BlockDispenser.field_149943_a.func_82595_a(TFItems.spawnEgg, new BehaviorTFMobEggDispense(minecraftServer));
+        BlockDispenser.dispenseBehaviorRegistry.putObject(TFItems.spawnEgg, new BehaviorTFMobEggDispense(minecraftServer));
     }
 
     private void loadConfiguration(Configuration configFile) {

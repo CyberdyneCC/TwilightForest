@@ -35,9 +35,9 @@ public abstract class TFGenerator extends WorldGenerator {
         double rangle = angle * 2.0D * 3.141592653589793D;
         double rtilt = tilt * 3.141592653589793D;
 
-        dest.field_71574_a = (int) ((long) dest.field_71574_a + Math.round(Math.sin(rangle) * Math.sin(rtilt) * distance));
-        dest.field_71572_b = (int) ((long) dest.field_71572_b + Math.round(Math.cos(rtilt) * distance));
-        dest.field_71573_c = (int) ((long) dest.field_71573_c + Math.round(Math.cos(rangle) * Math.sin(rtilt) * distance));
+        dest.posX = (int) ((long) dest.posX + Math.round(Math.sin(rangle) * Math.sin(rtilt) * distance));
+        dest.posY = (int) ((long) dest.posY + Math.round(Math.cos(rtilt) * distance));
+        dest.posZ = (int) ((long) dest.posZ + Math.round(Math.cos(rangle) * Math.sin(rtilt) * distance));
         return dest;
     }
 
@@ -49,13 +49,13 @@ public abstract class TFGenerator extends WorldGenerator {
         for (int j = 0; j < i; ++j) {
             ChunkCoordinates pixel = achunkcoordinates[j];
 
-            this.setBlockAndMetadata(world, pixel.field_71574_a, pixel.field_71572_b, pixel.field_71573_c, blockValue, metaValue);
+            this.setBlockAndMetadata(world, pixel.posX, pixel.posY, pixel.posZ, blockValue, metaValue);
         }
 
     }
 
     public static ChunkCoordinates[] getBresehnamArrayCoords(ChunkCoordinates src, ChunkCoordinates dest) {
-        return getBresehnamArrayCoords(src.field_71574_a, src.field_71572_b, src.field_71573_c, dest.field_71574_a, dest.field_71572_b, dest.field_71573_c);
+        return getBresehnamArrayCoords(src.posX, src.posX, src.posZ, dest.posX, dest.field_71572_b, dest.posZ);
     }
 
     public static ChunkCoordinates[] getBresehnamArrayCoords(int x1, int y1, int z1, int x2, int y2, int z2) {
@@ -85,18 +85,18 @@ public abstract class TFGenerator extends WorldGenerator {
             for (i = 0; i < l; ++i) {
                 lineArray[i] = new ChunkCoordinates(pixel);
                 if (err_1 > 0) {
-                    pixel.field_71572_b += y_inc;
+                    pixel.posX += y_inc;
                     err_1 -= dx2;
                 }
 
                 if (err_2 > 0) {
-                    pixel.field_71573_c += z_inc;
+                    pixel.posZ += z_inc;
                     err_2 -= dx2;
                 }
 
                 err_1 += dy2;
                 err_2 += dz2;
-                pixel.field_71574_a += x_inc;
+                pixel.posX += x_inc;
             }
         } else if (m >= l && m >= n) {
             err_1 = dx2 - m;
@@ -106,18 +106,18 @@ public abstract class TFGenerator extends WorldGenerator {
             for (i = 0; i < m; ++i) {
                 lineArray[i] = new ChunkCoordinates(pixel);
                 if (err_1 > 0) {
-                    pixel.field_71574_a += x_inc;
+                    pixel.posX += x_inc;
                     err_1 -= dy2;
                 }
 
                 if (err_2 > 0) {
-                    pixel.field_71573_c += z_inc;
+                    pixel.posZ += z_inc;
                     err_2 -= dy2;
                 }
 
                 err_1 += dx2;
                 err_2 += dz2;
-                pixel.field_71572_b += y_inc;
+                pixel.posY += y_inc;
             }
         } else {
             err_1 = dy2 - n;
@@ -127,18 +127,18 @@ public abstract class TFGenerator extends WorldGenerator {
             for (i = 0; i < n; ++i) {
                 lineArray[i] = new ChunkCoordinates(pixel);
                 if (err_1 > 0) {
-                    pixel.field_71572_b += y_inc;
+                    pixel.posY += y_inc;
                     err_1 -= dz2;
                 }
 
                 if (err_2 > 0) {
-                    pixel.field_71574_a += x_inc;
+                    pixel.posX += x_inc;
                     err_2 -= dz2;
                 }
 
                 err_1 += dy2;
                 err_2 += dx2;
-                pixel.field_71573_c += z_inc;
+                pixel.posZ += z_inc;
             }
         }
 
@@ -185,7 +185,7 @@ public abstract class TFGenerator extends WorldGenerator {
     }
 
     public void putLeafBlock(World world, int x, int y, int z, Block blockValue, int metaValue) {
-        Block whatsThere = world.func_147439_a(x, y, z);
+        Block whatsThere = world.getBlock(x, y, z);
 
         if (whatsThere == null || whatsThere.canBeReplacedByLeaves(world, x, y, z)) {
             this.setBlockAndMetadata(world, x, y, z, blockValue, metaValue);
@@ -202,9 +202,9 @@ public abstract class TFGenerator extends WorldGenerator {
 
         for (int cx = 0; cx < width; ++cx) {
             for (int cz = 0; cz < depth; ++cz) {
-                Material m = world.func_147439_a(x + cx, y - 1, z + cz).func_149688_o();
+                Material m = world.getBlock(x + cx, y - 1, z + cz).getMaterial();
 
-                if (m != Material.field_151578_c && m != Material.field_151577_b && m != Material.field_151576_e) {
+                if (m != Material.ground && m != Material.field_151577_b && m != Material.field_151576_e) {
                     flag = false;
                 }
 
@@ -284,27 +284,27 @@ public abstract class TFGenerator extends WorldGenerator {
     protected static boolean surroundedByAir(IBlockAccess world, int bx, int by, int bz) {
         boolean airAround = true;
 
-        if (!world.func_147437_c(bx + 1, by, bz)) {
+        if (!world.isAirBlock(bx + 1, by, bz)) {
             airAround = false;
         }
 
-        if (!world.func_147437_c(bx - 1, by, bz)) {
+        if (!world.isAirBlock(bx - 1, by, bz)) {
             airAround = false;
         }
 
-        if (!world.func_147437_c(bx, by, bz + 1)) {
+        if (!world.isAirBlock(bx, by, bz + 1)) {
             airAround = false;
         }
 
-        if (!world.func_147437_c(bx, by, bz - 1)) {
+        if (!world.isAirBlock(bx, by, bz - 1)) {
             airAround = false;
         }
 
-        if (!world.func_147437_c(bx, by + 1, bz)) {
+        if (!world.isAirBlock(bx, by + 1, bz)) {
             airAround = false;
         }
 
-        if (!world.func_147437_c(bx, by - 1, bz)) {
+        if (!world.isAirBlock(bx, by - 1, bz)) {
             airAround = false;
         }
 
@@ -314,23 +314,23 @@ public abstract class TFGenerator extends WorldGenerator {
     protected static boolean hasAirAround(IBlockAccess world, int bx, int by, int bz) {
         boolean airAround = false;
 
-        if (world.func_147439_a(bx + 1, by, bz) == Blocks.field_150350_a) {
+        if (world.getBlock(bx + 1, by, bz) == Blocks.air) {
             airAround = true;
         }
 
-        if (world.func_147439_a(bx - 1, by, bz) == Blocks.field_150350_a) {
+        if (world.getBlock(bx - 1, by, bz) == Blocks.air) {
             airAround = true;
         }
 
-        if (world.func_147439_a(bx, by, bz + 1) == Blocks.field_150350_a) {
+        if (world.getBlock(bx, by, bz + 1) == Blocks.air) {
             airAround = true;
         }
 
-        if (world.func_147439_a(bx, by, bz - 1) == Blocks.field_150350_a) {
+        if (world.getBlock(bx, by, bz - 1) == Blocks.air) {
             airAround = true;
         }
 
-        if (world.func_147439_a(bx, by + 1, bz) == Blocks.field_150350_a) {
+        if (world.getBlock(bx, by + 1, bz) == Blocks.air) {
             airAround = true;
         }
 
@@ -340,19 +340,19 @@ public abstract class TFGenerator extends WorldGenerator {
     protected static boolean isNearSolid(IBlockAccess world, int bx, int by, int bz) {
         boolean nearSolid = false;
 
-        if (world.func_147439_a(bx + 1, by, bz).func_149688_o().func_76220_a()) {
+        if (world.getBlock(bx + 1, by, bz).getMaterial().isSolid()) {
             nearSolid = true;
         }
 
-        if (world.func_147439_a(bx - 1, by, bz).func_149688_o().func_76220_a()) {
+        if (world.getBlock(bx - 1, by, bz).getMaterial().isSolid()) {
             nearSolid = true;
         }
 
-        if (world.func_147439_a(bx, by, bz + 1).func_149688_o().func_76220_a()) {
+        if (world.getBlock(bx, by, bz + 1).getMaterial().isSolid()) {
             nearSolid = true;
         }
 
-        if (world.func_147439_a(bx, by, bz - 1).func_149688_o().func_76220_a()) {
+        if (world.getBlock(bx, by, bz - 1).getMaterial().isSolid()) {
             nearSolid = true;
         }
 
@@ -364,6 +364,6 @@ public abstract class TFGenerator extends WorldGenerator {
     }
 
     protected void setBlockAndMetadata(World world, int x, int y, int z, Block block, int meta) {
-        this.func_150516_a(world, x, y, z, block, meta);
+        this.setBlockAndNotifyAdequately(world, x, y, z, block, meta);
     }
 }
